@@ -26,15 +26,8 @@ public class FruitBAsketController : ControllerBase
        
          List<Fruit> fruitList = fruitservice.GetFruits(fruitname, sorted);
         
-        if (fruitList.Count == 0 || fruitList == null)
+        if (fruitList == null || fruitList.Count == 0)
             return BadRequest("Found nothing");
-        var metadata = new
-        {
-            TotalCount = fruitList.Count,
-            TotalPrice = fruitList.Sum(item => item.price)
-
-        };
-        HttpContext.Response.Headers.Add("metadata", JsonConvert.SerializeObject(metadata));
         return Ok(fruitList);
         
     }
